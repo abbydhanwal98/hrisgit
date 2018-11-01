@@ -1,0 +1,136 @@
+<!-- <ng-flash-message></ng-flash-message> -->
+<mat-card>
+  <mat-card-title>Create Employees</mat-card-title>
+ <!--  <mat-card-subtitle>Angular2 custom validation</mat-card-subtitle> -->
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-card-content>
+      <div fxLayout="row wrap">
+        <div class="mb-1">
+          <mat-form-field style="width: 100%">
+            <input matInput placeholder="Name" [formControl]="form.controls['name']">
+          </mat-form-field>
+          <small *ngIf="form.controls['name'].hasError('required') && form.controls['name'].touched" class="mat-text-warn">You must include name.</small>
+          <small *ngIf="form.controls['name'].hasError('minlength') && form.controls['department_name'].touched" class="mat-text-warn">Your first name must be at least 5 characters long.</small>
+          <small *ngIf="form.controls['name'].hasError('maxlength') && form.controls['name'].touched" class="mat-text-warn">Your first name cannot exceed 10 characters.</small>
+        </div>
+      </div>
+
+      <div class="mb-1">
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="Email address" [formControl]="form.controls['email']" type="email">
+        </mat-form-field>
+        <small *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="mat-text-warn">You must include an email address.</small>
+        <small *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched" class="mat-text-warn">You must include a valid email address.</small>
+      </div>
+
+      <div class="mb-1">
+        
+
+        <mat-form-field style="width: 100%">
+          <input matInput [matDatepicker]="picker" placeholder="DOB" [formControl]="form.controls['dob']">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+<!-- 
+      <small *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="mat-text-warn">You must include an email address.</small>
+        <small *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched" class="mat-text-warn">You must include a valid email address.</small> -->
+
+      </div>
+
+      
+
+   <!--    <div class="mb-1">
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="DOB" [formControl]="form.controls['dob']" type="date" >
+        </mat-form-field>
+        <small *ngIf="form.controls['dob'].hasError('required') && form.controls['dob'].touched" class="mat-text-warn">You must include a date.</small>
+        <small *ngIf="form.controls['dob'].errors?.date && form.controls['dob'].touched" class="mat-text-warn">You must include a valid date.</small>
+
+
+      </div> -->
+
+      <div class="mb-1">
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="US Phone number (15417543010)" [formControl]="form.controls['phone']" type="text" >
+        </mat-form-field>
+        <small *ngIf="form.controls['phone'].hasError('required') && form.controls['phone'].touched" class="mat-text-warn">You must include phone number.</small>
+        <!-- <small *ngIf="form.controls['phone'].errors?.phone && form.controls['phone'].touched" class="mat-text-warn">You must include a valid phone number.</small> -->
+        <!--pattern="/^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/" <small *ngIf="phone.errors?.pattern">
+		     User name not valid.
+		</small> -->
+      </div>
+      <div class="mb-1">
+      <mat-form-field  style="width: 100%">
+        <mat-select placeholder="Department" [formControl]="form.controls['department']">
+          <mat-option value="Hawaii">(GMT-10:00) Hawaii</mat-option>
+          <mat-option value="Alaska">(GMT-09:00) Alaska</mat-option>
+         
+        </mat-select>
+      </mat-form-field>
+       <button mat-raised-button color="primary" type="button" (click)="newDept()">Add New</button>
+        <small *ngIf="form.controls['department'].hasError('required') && form.controls['department'].touched" class="mat-text-warn">You must include Department.</small>
+      </div>
+
+
+
+
+      <div class="mb-1">
+      <mat-form-field  style="width: 100%">
+        <mat-select placeholder="Position" [formControl]="form.controls['position']">
+          <mat-option value="3">Employee</mat-option>
+          <mat-option value="2">HR</mat-option>
+        </mat-select>
+      </mat-form-field>
+        <small *ngIf="form.controls['position'].hasError('required') && form.controls['position'].touched" class="mat-text-warn">You must include Position.</small>
+      </div>
+
+      <div class="mb-1">
+          <mat-form-field  style="width: 100%">       
+              <textarea matInput placeholder="Address" [formControl]="form.controls['address']"></textarea>
+          </mat-form-field>
+            <small *ngIf="form.controls['address'].hasError('required') && form.controls['address'].touched" class="mat-text-warn">You must include Address.</small>
+      </div>
+
+      <div class="mb-1">
+          <mat-form-field  style="width: 100%">       
+              <textarea matInput placeholder="About" [formControl]="form.controls['about']"></textarea>
+          </mat-form-field>
+            <small *ngIf="form.controls['about'].hasError('required') && form.controls['about'].touched" class="mat-text-warn">You must include About.</small>
+      </div>
+
+   
+
+      
+
+    	<div class="mb-1">
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="Password" [formControl]="form.controls['password']" type="password">
+        </mat-form-field>
+    		<small *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched" class="mat-text-warn">You must include password.</small>
+      </div>
+
+      <div class="mb-1">
+        <mat-form-field style="width: 100%">
+          <input matInput placeholder="Confirm Password" [formControl]="form.controls['confirmPassword']" type="password">
+        </mat-form-field>
+    		<small *ngIf="form.controls['confirmPassword'].hasError('required') && form.controls['confirmPassword'].touched" class="mat-text-warn">You must include confirm password.</small>
+    		<small *ngIf="form.controls['confirmPassword'].errors?.equalTo" class="mat-text-warn">Passwords do not math.</small>
+    	</div>
+
+      <div class="mb-1">
+        <label>Gender</label>
+    	  <mat-radio-group [formControl]="form.controls['gender']">
+      	  <mat-radio-button value="male">Male</mat-radio-button>
+      	  <mat-radio-button value="female">Female</mat-radio-button>
+      	</mat-radio-group>
+        <small *ngIf="!form.controls['gender'].valid && form.controls['gender'].touched" class="mat-text-warn">You must select a gender.</small>
+      </div>
+
+    
+    </mat-card-content>
+    <hr>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Submit</button>
+    </mat-card-actions>
+  </form>
+</mat-card>
